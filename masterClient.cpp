@@ -33,8 +33,8 @@ void printMenu() {
 	printf("  4 - Lower\n");
 	printf("  5 - Caesar\n");
 	printf("  6 - One Time Pad\n");
-	printf(" or 0 to exit program\n");
-	printf("Your desired menu selection?: ");
+	printf("or 0 to exit choice selection and enter a new string.\n");
+	printf("Your desired menu selection(s)?: ");
 }
 
 /* Main program of client */
@@ -88,49 +88,52 @@ int main() {
 
 	/* Print welcome banner */
 	printf("Welcome! This is Daniel's data transformation service\n");
-
-
-	/* main loop: read a word, send to server, and print answer received */
-	do {
-		/* get rid of newline after the (integer) menu choice given */
-		printf("Enter your string: ");
-		getline(cin,message);
+    while (true) {
+        cout << "First enter your string or \"bye\" to exit.\n";
+        cout <<"Enter your string: ";
+        getline(cin, message);
+        if (message.compare("bye") == true){
+            cout << "Program exiting! Have a good day." << endl;
+        }
+        /* main loop: read a word, send to server, and print answer received */
+        int choiceNumbers = 0;
+        while (true) {
+            /* get rid of newline after the (integer) menu choice given */
 
 //		get choices and send them first
-        int choiceNumbers;
-        printMenu();
-        cin >> choiceNumbers;
-        choices = to_string(choiceNumbers);
-        if (choices.find_first_of("789") != string::npos ){
-            cerr << "Invalid choice!" << endl;
-            break;
-        } else if (choiceNumbers == 0 ){
-            break;
+            printMenu();
+            cin >> choiceNumbers;
+            choices = to_string(choiceNumbers);
+            if (choices.find_first_of("789") != string::npos) {
+                cerr << "Invalid choice!" << endl;
+                break;
+            } else if (choiceNumbers == 0) {
+                break;
+            }
+
+            string combinedString = choices;
+            combinedString.append("$");
+            combinedString.append(message);
+
+            send(socketDescriptor, combinedString.c_str(), combinedString.size(), 0);
+
+            combinedString.clear();
+            /* see what the server sends back */
+            char recvMessage[MAX_MESSAGE_LENGTH];
+            bzero(recvMessage, MAX_MESSAGE_LENGTH);
+            if ((bytes = recv(socketDescriptor, recvMessage, MAX_MESSAGE_LENGTH, 0)) > 0) {
+                string recvString(recvMessage);
+                cout << "Answer received from server: " << recvMessage << endl;
+            } else {
+                /* an error condition if the server dies unexpectedly */
+                cerr << "Sorry, dude. Server failed!\n";
+                close(socketDescriptor);
+                exit(1);
+            }
+
+            std::cin.ignore();
         }
-
-		string combinedString = choices;
-        combinedString.append("$");
-        combinedString.append(message);
-
-		send(socketDescriptor, combinedString.c_str(), combinedString.size(), 0);
-
-		combinedString.clear();
-		/* see what the server sends back */
-		char recvMessage[MAX_MESSAGE_LENGTH];
-		bzero(recvMessage,MAX_MESSAGE_LENGTH);
-		if ((bytes = recv(socketDescriptor, recvMessage, MAX_MESSAGE_LENGTH, 0)) > 0) {
-		    string recvString(recvMessage);
-            cout << "Answer received from server: " << recvMessage << endl;
-		} else {
-			/* an error condition if the server dies unexpectedly */
-			cerr << "Sorry, dude. Server failed!\n";
-			close(socketDescriptor);
-			exit(1);
-		}
-
-        std::cin.ignore();
-	} while (true);
-
+    }
 
 /* Program all done, so clean up and exit the client */
 	close(socketDescriptor);
