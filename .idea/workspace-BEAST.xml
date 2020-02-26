@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CMakeRunConfigurationManager" shouldGenerate="true" shouldDeleteObsolete="true">
+    <generated>
+      <config projectName="441ASG2" targetName="caesar" />
+      <config projectName="441ASG2" targetName="identity" />
+      <config projectName="441ASG2" targetName="onetime" />
+      <config projectName="441ASG2" targetName="reverse" />
+      <config projectName="441ASG2" targetName="Server" />
+      <config projectName="441ASG2" targetName="upper" />
+      <config projectName="441ASG2" targetName="lower" />
+      <config projectName="441ASG2" targetName="Client" />
+    </generated>
+  </component>
+  <component name="CMakeSettings" AUTO_RELOAD="true">
+    <configurations>
+      <configuration PROFILE_NAME="Debug" CONFIG_NAME="Debug" />
+    </configurations>
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="cbf50ebf-4629-4d4b-b67e-6c03bc18891a" name="Default Changelist" comment="" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ClangdSettings">
+    <option name="formatViaClangd" value="false" />
+  </component>
+  <component name="ExecutionTargetManager" SELECTED_TARGET="CMakeBuildProfile:Debug" />
+  <component name="ProjectId" id="1XumxAiy0Gp66p5b1DaUdJMgVVM" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showExcludedFiles" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="node.js.detected.package.eslint" value="true" />
+    <property name="node.js.detected.package.tslint" value="true" />
+    <property name="node.js.path.for.package.eslint" value="project" />
+    <property name="node.js.path.for.package.tslint" value="project" />
+    <property name="node.js.selected.package.eslint" value="(autodetect)" />
+    <property name="node.js.selected.package.tslint" value="(autodetect)" />
+    <property name="settings.editor.selected.configurable" value="preferences.lookFeel" />
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\Daniel\OneDrive - University of Calgary\Current Classes\CPSC 441\441ASG2\examples" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\Daniel\OneDrive - University of Calgary\Current Classes\CPSC 441\441ASG2\microServices" />
+    </key>
+  </component>
+  <component name="RunManager" selected="CMake Application.caesar">
+    <configuration name="Client" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="441ASG2" TARGET_NAME="Client" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="441ASG2" RUN_TARGET_NAME="Client">
+      <method v="2">
+        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Server" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="441ASG2" TARGET_NAME="Server" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="441ASG2" RUN_TARGET_NAME="Server">
+      <method v="2">
+        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="caesar" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="441ASG2" TARGET_NAME="caesar" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="441ASG2" RUN_TARGET_NAME="caesar">
+      <method v="2">
+        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="identity" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="441ASG2" TARGET_NAME="identity" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="441ASG2" RUN_TARGET_NAME="identity">
+      <method v="2">
+        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="lower" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="441ASG2" TARGET_NAME="lower" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="441ASG2" RUN_TARGET_NAME="lower">
+      <method v="2">
+        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="onetime" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="441ASG2" TARGET_NAME="onetime" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="441ASG2" RUN_TARGET_NAME="onetime">
+      <method v="2">
+        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="reverse" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="441ASG2" TARGET_NAME="reverse" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="441ASG2" RUN_TARGET_NAME="reverse">
+      <method v="2">
+        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="upper" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="441ASG2" TARGET_NAME="upper" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="441ASG2" RUN_TARGET_NAME="upper">
+      <method v="2">
+        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
+    <list>
+      <item itemvalue="CMake Application.caesar" />
+      <item itemvalue="CMake Application.Client" />
+      <item itemvalue="CMake Application.identity" />
+      <item itemvalue="CMake Application.lower" />
+      <item itemvalue="CMake Application.onetime" />
+      <item itemvalue="CMake Application.reverse" />
+      <item itemvalue="CMake Application.Server" />
+      <item itemvalue="CMake Application.upper" />
+    </list>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="cbf50ebf-4629-4d4b-b67e-6c03bc18891a" name="Default Changelist" comment="" />
+      <created>1581904597877</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1581904597877</updated>
+      <workItem from="1581904599069" duration="690000" />
+      <workItem from="1581905524590" duration="4868000" />
+      <workItem from="1582521755576" duration="2841000" />
+      <workItem from="1582576946626" duration="3868000" />
+      <workItem from="1582589841943" duration="2029000" />
+      <workItem from="1582593229405" duration="1155000" />
+      <workItem from="1582606448040" duration="4494000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="1" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="499" y="162" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1582583859044">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="499" y="162" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.1536.824@0.0.1536.824" timestamp="1582583859044" />
+    <state x="780" y="347" key="SettingsEditor" timestamp="1582562821025">
+      <screen x="0" y="0" width="2560" height="1410" />
+    </state>
+    <state x="780" y="347" key="SettingsEditor/0.0.2560.1410/2560.349.1920.1050@0.0.2560.1410" timestamp="1582562821025" />
+    <state x="342" y="528" key="com.intellij.ide.util.TipDialog" timestamp="1582606452880">
+      <screen x="0" y="0" width="2560" height="1410" />
+    </state>
+    <state x="205" y="309" key="com.intellij.ide.util.TipDialog/0.0.1536.824@0.0.1536.824" timestamp="1582589910072" />
+    <state x="342" y="528" key="com.intellij.ide.util.TipDialog/0.0.2560.1410/2560.349.1920.1050@0.0.2560.1410" timestamp="1582606452880" />
+    <state x="986" y="121" key="refactoring.ChangeSignatureDialog" timestamp="1582593880923">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="986" y="121" key="refactoring.ChangeSignatureDialog/0.0.1536.824@0.0.1536.824" timestamp="1582593880923" />
+    <state x="943" y="317" width="672" height="678" key="search.everywhere.popup" timestamp="1582562813840">
+      <screen x="0" y="0" width="2560" height="1410" />
+    </state>
+    <state x="943" y="317" width="672" height="678" key="search.everywhere.popup/0.0.2560.1410/2560.349.1920.1050@0.0.2560.1410" timestamp="1582562813840" />
+  </component>
+</project>
