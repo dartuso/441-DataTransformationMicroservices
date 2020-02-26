@@ -69,7 +69,7 @@ int main() {
 	/* hard code the IP address so you don't need hostname resolver */
 //	server.sin_addr.s_addr = inet_addr("136.159.5.25");
     server.sin_addr.s_addr = inet_addr(SERVER_IP);
-    printf("Using localhost!\n");
+    printf("Using ip: %s\n",SERVER_IP);
 //#endif
 
 
@@ -117,6 +117,7 @@ int main() {
 		combinedString.clear();
 		/* see what the server sends back */
 		char recvMessage[MAX_MESSAGE_LENGTH];
+		bzero(recvMessage,MAX_MESSAGE_LENGTH);
 		if ((bytes = recv(socketDescriptor, recvMessage, MAX_MESSAGE_LENGTH, 0)) > 0) {
 		    string recvString(recvMessage);
             cout << "Answer received from server: " << recvMessage << endl;

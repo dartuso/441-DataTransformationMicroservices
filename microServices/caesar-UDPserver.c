@@ -20,48 +20,29 @@
 #include <netinet/in.h>
 #include <arpa/inet.h>
 #include "../const.h"
-
+#include <ctype.h>
 /* Manifest constants */
 
 /* Verbose debugging */
 #define DEBUG 1
+#define ROTATION 13
+#define ALPHABET 26
 
-char * caesar (char * messageIn){
-	char character;
-	static const int offset = 13;
-	for(int j = 0; messageIn[j] != '\0'; ++j){
+int rotation(int c)
+{
 
-		character = messageIn[j];
-
-		if(character >= 'a' && character <= 'z'){
-
-			character = character + offset;
-
-			if(character > 'z'){
-
-				character = character - 'z' + 'a' - 1;
-
-			}
-
-			messageIn[j] = character;
-
-		}
-
-		else if(character >= 'A' && character <= 'Z'){
-
-			character = character + offset;
-
-			if(character > 'Z'){
-
-				character = character - 'Z' + 'A' - 1;
-
-			}
-
-			messageIn[j] = character;
-
-		}
+	if (isalpha(c)) {
+		char alpha = islower(c) ? 'a' : 'A';
+		return (c - alpha + ROTATION) % ALPHABET + alpha;
 	}
-	return messageIn;
+	return c;
+}
+
+void caesar (char * messageIn){
+	unsigned int length = strlen(messageIn);
+	for(int j = 0; j < length; ++j){
+		messageIn[j] = rotation(messageIn[j]);
+	}
 }
 
 /* Main program */
@@ -69,9 +50,8 @@ int main()
   {
     struct sockaddr_in si_server, si_client;
     struct sockaddr *server, *client;
-    int s, i, len=sizeof(si_server);
+    int s, len=sizeof(si_server);
     char messagein[MAX_MESSAGE_LENGTH];
-    char messageout[MAX_MESSAGE_LENGTH];
     int readBytes;
 
     if ((s=socket(AF_INET, SOCK_DGRAM, IPPROTO_UDP))==-1)
@@ -100,7 +80,6 @@ int main()
       {
 	/* clear out message buffers to be safe */
 	bzero(messagein, MAX_MESSAGE_LENGTH);
-	bzero(messageout, MAX_MESSAGE_LENGTH);
 
 	/* see what comes in from a client, if anything */
 	if ((readBytes=recvfrom(s, messagein, MAX_MESSAGE_LENGTH, 0, client, &len)) < 0)
@@ -116,14 +95,13 @@ int main()
 	       messagein, inet_ntoa(si_client.sin_addr), ntohs(si_client.sin_port));
 
 	/* create the outgoing message (as an ASCII string) */
-	const char * caesarString = caesar(messagein);
-	sprintf(messageout, "%s", caesarString );
+	caesar(messagein);
 
 #ifdef DEBUG
-	printf("Server sending back the message: \"%s\"\n", caesarString);
+	printf("Server sending back the message: \"%s\"\n", messagein);
 #endif
 
 	/* send the result message back to the client */
-	sendto(s, messageout, strlen(messageout), 0, client, len);
+	sendto(s, messagein, strlen(messagein), 0, client, len);
       }
   }

@@ -98,10 +98,10 @@ int main() {
 
 				choiceString = combinedMessage.substr(beginning, choiceEnd);
 				messageString = combinedMessage.substr(choiceEnd + 1);
+				strcpy(message, messageString.c_str());
 
 				cout << "Choices are: " << choiceString << "\n";
 				cout << "Message is: " << messageString << "\n";
-
 
 				dispatchUDP(choiceString);
 
@@ -134,7 +134,7 @@ void dispatchUDP(const string& choiceString){
 		cerr << "Performing choice: " << i << '\n';
 		switch (i) {
 			case IDENTITY:
-				callUDP(CAESAR_PORT);
+				callUDP(IDENTITY_PORT);
 				break;
 			case REVERSE:
 				callUDP(REVERSE_PORT);
@@ -197,7 +197,6 @@ void callUDP(const int port) {
 
 	}
 	printf("Received back: %s\n\n", message);
-	sleep(1);
 }
 
 
