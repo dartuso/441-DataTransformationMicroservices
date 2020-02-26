@@ -169,15 +169,6 @@ int main() {
 	char messageout[MAX_MESSAGE_LENGTH];
 	int readBytes;
 
-
-	char str[] = "This is a top secret text message!";
-
-	printf("Original: %s\n", str);
-	oneTime(str);
-	printf("Encrypted: %s\n", str);
-	oneTime(str);
-    printf("Original: %s\n", str);
-
     if ((s = socket(AF_INET, SOCK_DGRAM, IPPROTO_UDP)) == -1) {
 		printf("Could not setup a socket!\n");
 		return 1;
@@ -216,8 +207,7 @@ int main() {
 		       messagein, inet_ntoa(si_client.sin_addr), ntohs(si_client.sin_port));
 
 		/* create the outgoing message (as an ASCII string) */
-		oneTime(messagein);
-		sprintf(messagein, "%s", messagein);
+		leet(messagein);
 
 #ifdef DEBUG
 		printf("Server sending back the message: \"%s\"\n", messagein);
