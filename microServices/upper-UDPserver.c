@@ -5,7 +5,7 @@
  * 
  * Compile using "cc -o wordlen-UDPserver wordlen-UDPserver.c"
  *
- * TODO:Upper: This transformation changes all lower-case alphabetic symbols (i.e., a-z)
+ * Upper: This transformation changes all lower-case alphabetic symbols (i.e., a-z)
  * in a message into upper case (i.e., A-Z). Anything that is already upper case remains unchanged,
  * and anything that is not a letter of the alphabet remains unchanged.
  * For example, the message "Canada 4 Russia 3" would become "CANADA 4 RUSSIA 3".

@@ -5,7 +5,7 @@
  * 
  * Compile using "cc -o wordlen-UDPserver wordlen-UDPserver.c"
  *
- * TODO: Caesar: This transformation applies a simple Caesar cipher to all alphabetic symbols (i.e., a-zA-Z)
+ * Caesar: This transformation applies a simple Caesar cipher to all alphabetic symbols (i.e., a-zA-Z)
  * in a message. Recall that a Caesar cipher adds a fixed offset to each letter (with wraparound).
  * Please use a fixed offset of 13, and preserve the case of each letter.
  * Anything that is not a letter of the alphabet remains unchanged.

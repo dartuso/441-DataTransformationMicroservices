@@ -5,7 +5,7 @@
  * 
  * Compile using "cc -o wordlen-UDPserver wordlen-UDPserver.c"
  *
- * TODO:Reverse: This transformation reverses the order of the bytes in a message,
+ * Reverse: This transformation reverses the order of the bytes in a message,
  *      and returns the result back. For example, the message "dog" would become "god".
  */
  

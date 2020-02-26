@@ -5,7 +5,7 @@
  * 
  * Compile using "cc -o wordlen-UDPserver wordlen-UDPserver.c"
  *
- * TODO:Identity: The identity transformation does nothing to the data,
+ * Identity: The identity transformation does nothing to the data,
  *      but merely returns exactly what was received. It is also known as an echo server.
  */
  
