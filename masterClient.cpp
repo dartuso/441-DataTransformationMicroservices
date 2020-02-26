@@ -32,8 +32,8 @@ void printMenu() {
 	printf("  3 - Upper\n");
 	printf("  4 - Lower\n");
 	printf("  5 - Caesar\n");
-	printf("  6 - One Time Pad\n");
-	printf("or 0 to exit choice selection and enter a new string.\n");
+	printf("  6 - Leet Speak\n");
+	printf("or 0 to exit program.\n");
 	printf("Your desired menu selection(s)?: ");
 }
 
@@ -88,13 +88,10 @@ int main() {
 
 	/* Print welcome banner */
 	printf("Welcome! This is Daniel's data transformation service\n");
-    while (true) {
-        cout << "First enter your string or \"bye\" to exit.\n";
+        message.clear();
         cout <<"Enter your string: ";
         getline(cin, message);
-        if (message.compare("bye") == true){
-            cout << "Program exiting! Have a good day." << endl;
-        }
+
         /* main loop: read a word, send to server, and print answer received */
         int choiceNumbers = 0;
         while (true) {
@@ -133,7 +130,6 @@ int main() {
 
             std::cin.ignore();
         }
-    }
 
 /* Program all done, so clean up and exit the client */
 	close(socketDescriptor);

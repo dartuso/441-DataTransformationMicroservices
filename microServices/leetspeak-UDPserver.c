@@ -23,50 +23,141 @@
 #include <arpa/inet.h>
 #include<time.h>
 #include <stdlib.h>
+#include <ctype.h>
 #include "../const.h"
 
 /* Verbose debugging */
 #define DEBUG 1
 
+
+/*
+ * Encodes in leet
+ *
+ * Translation based on:
+ * http://www.robertecker.com/hp/research/leet-converter.php?lang=en
+ * */
+void leet(char *messagein){
+    int lengthString = strlen(messagein);
+    for (int i = 0; i < lengthString; ++i) {
+        if (isalpha(messagein[i]))
+            messagein[i] = tolower(messagein[i]);
+
+        switch (messagein[i]){
+            case 'a':
+                messagein[i] = '4';
+                break;
+            case '4':
+                messagein[i] = 'a';
+                break;
+            case 'b':
+                messagein[i] = '8';
+                break;
+            case '8':
+                messagein[i] = 'b';
+                break;
+            case 'c':
+                messagein[i] = '<';
+                break;
+            case '<':
+                messagein[i] = 'c';
+                break;
+            case 'd':
+                messagein[i] = ']';
+                break;
+            case ']':
+                messagein[i] = 'd';
+                break;
+            case 'e':
+                messagein[i] = '3';
+                break;
+            case '3':
+                messagein[i] = 'e';
+                break;
+            case 'i':
+                messagein[i] = '1';
+                break;
+            case '1':
+                messagein[i] = 'i';
+                break;
+            case 'o':
+                messagein[i] = '0';
+                break;
+            case '0':
+                messagein[i] = 'o';
+                break;
+            case 's':
+                messagein[i] = '5';
+                break;
+            case '5':
+                messagein[i] = 's';
+                break;
+            case 't':
+                messagein[i] = '7';
+                break;
+            case '7':
+                messagein[i] = 't';
+                break;
+            case 'x':
+                messagein[i] = '%';
+                break;
+            case '%':
+                messagein[i] = 'x';
+                break;
+            case 'z':
+                messagein[i] = '2';
+                break;
+            case '2':
+                messagein[i] = 'z';
+                break;
+            default:
+                break;
+        }
+    }
+}
+
+
 /*
  *
  * Printing binary of char: https://stackoverflow.com/questions/18327439/printing-binary-representation-of-a-char-in-c
  * */
+/*
 void oneTime(char *messageIn) {
-	char keyString[MAX_MESSAGE_LENGTH];
-	time_t t;
-	int byte;
-
-	srand((unsigned) time(&t));
-
-	for (int j = 0; j < MAX_MESSAGE_LENGTH; ++j) {
-		byte = rand() % 256;
-		keyString[j] = byte;
-	}
+	char keyString[] = "This is the secret key!";
+	int keyLength = strlen(keyString);
+//	time_t t;
+//	int byte;
+//	srand((unsigned) time(&t));
+//	for (int j = 0; j < MAX_MESSAGE_LENGTH; ++j) {
+//		byte = rand() % 256;
+//		keyString[j] = byte;
+//	}
 
 	printf("ORIGINAL XOR   KEY    = ENCRYPTED:\n");
 	for (int i = 0; messageIn[i] != '\0'; ++i) {
+	    int keyPos = i % keyLength;
+	    printf("%d ",keyPos);
 		for (int j = 0; j < 8; ++j) {
 			printf("%d", !!((messageIn[i] << j) & 0x80));
 
 		}
 
 		printf(" XOR ");
-		for (int j = 0; j < 8; ++j) {
-			printf("%d", !!((keyString[i] << j) & 0x80));
+            for (int j = 0; j < 8; ++j) {
+                printf("%d", !!((keyString[keyPos] << j) & 0x80));
 
 		}
 		printf(" = ");
 
-		for (int j = 0; j < 8; ++j) {
+        messageIn[i] = messageIn[i] ^ keyString[keyPos];
+        for (int j = 0; j < 8; ++j) {
 			printf("%d", !!((messageIn[i] << j) & 0x80));
 		}
 		printf(" \n");
 
 
-		messageIn[i] = messageIn[i] ^ keyString[i];
 	}
 }
+*/
 
 
 /* Main program */
@@ -84,25 +175,27 @@ int main() {
 	printf("Original: %s\n", str);
 	oneTime(str);
 	printf("Encrypted: %s\n", str);
+	oneTime(str);
+    printf("Original: %s\n", str);
 
-	if ((s = socket(AF_INET, SOCK_DGRAM, IPPROTO_UDP)) == -1) {
+    if ((s = socket(AF_INET, SOCK_DGRAM, IPPROTO_UDP)) == -1) {
 		printf("Could not setup a socket!\n");
 		return 1;
 	}
 
 	memset((char *) &si_server, 0, sizeof(si_server));
 	si_server.sin_family = AF_INET;
-	si_server.sin_port = htons(ONETIME_PORT);
+	si_server.sin_port = htons(LEETSPEAK_PORT);
 	si_server.sin_addr.s_addr = htonl(INADDR_ANY);
 	server = (struct sockaddr *) &si_server;
 	client = (struct sockaddr *) &si_client;
 
 	if (bind(s, server, sizeof(si_server)) == -1) {
-		printf("Could not bind to port %d!\n", ONETIME_PORT);
+		printf("Could not bind to port %d!\n", LEETSPEAK_PORT);
 		return 1;
 	}
 	fprintf(stderr, "Welcome! I am the one time pad server!!\n");
-	printf("server now listening on UDP port %d...\n", ONETIME_PORT);
+	printf("server now listening on UDP port %d...\n", LEETSPEAK_PORT);
 
 	/* big loop, looking for incoming messages from clients */
 	for (;;) {

@@ -10,7 +10,7 @@ static const char IDENTITY = '1',
                   UPPER    = '3',
                   LOWER    = '4',
                   CAESAR   = '5',
-                  ONETIME  = '6';
+                  LEET  = '6';
 
 static const int MAX_MESSAGE_LENGTH = 2048 * 10;
 
@@ -23,7 +23,7 @@ static const int IDENTITY_PORT = 9002,
                  UPPER_PORT    = 9004,
                  LOWER_PORT    = 9005,
                  CAESAR_PORT   = 9006,
-                 ONETIME_PORT  = 9007;
+                 LEETSPEAK_PORT  = 9007;
 
 //#define SERVER_IP "136.159.5.25"  /* csx.cpsc.ucalgary.ca */
 #define SERVER_IP  "127.0.0.1"

@@ -148,8 +148,8 @@ void dispatchUDP(const string& choiceString){
 			case CAESAR:
 				callUDP(CAESAR_PORT);
 				break;
-			case ONETIME:
-				callUDP(ONETIME_PORT);
+			case LEET:
+				callUDP(LEETSPEAK_PORT);
 				break;
 			default:
 				cerr <<"Error in selection!\n";
