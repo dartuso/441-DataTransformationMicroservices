@@ -41,7 +41,7 @@ int main()
   {
     struct sockaddr_in si_server, si_client;
     struct sockaddr *server, *client;
-    int s, i, len=sizeof(si_server);
+    int s, len=sizeof(si_server);
     char messagein[MAX_MESSAGE_LENGTH];
     char *messageout = NULL;
     int readBytes;
@@ -68,13 +68,12 @@ int main()
     printf("server now listening on UDP port %d...\n", REVERSE_PORT);
 	
     /* big loop, looking for incoming messages from clients */
-    for( ; ; )
-      {
+//    for( ; ; ){
 	/* clear out message buffers to be safe */
 	bzero(messagein, MAX_MESSAGE_LENGTH);
 
 	/* see what comes in from a client, if anything */
-	if ((readBytes=recvfrom(s, messagein, MAX_MESSAGE_LENGTH, 0, client, &len)) < 0)
+	if ((readBytes=recvfrom(s, messagein, MAX_MESSAGE_LENGTH, 0, client, (socklen_t *) &len)) < 0)
 	  {
 	    printf("Read error!\n");
 	    return -1;
@@ -94,7 +93,7 @@ int main()
 
 	/* send the result message back to the client */
 	sendto(s, messageout, strlen(messageout), 0, client, len);		
-      }
+//      }
 
     close(s);
     return 0;

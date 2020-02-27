@@ -21,8 +21,6 @@
 #include <sys/socket.h>
 #include <netinet/in.h>
 #include <arpa/inet.h>
-#include<time.h>
-#include <stdlib.h>
 #include <ctype.h>
 #include "../const.h"
 
@@ -116,55 +114,11 @@ void leet(char *messagein){
 }
 
 
-/*
- *
- * Printing binary of char: https://stackoverflow.com/questions/18327439/printing-binary-representation-of-a-char-in-c
- * */
-/*
-void oneTime(char *messageIn) {
-	char keyString[] = "This is the secret key!";
-	int keyLength = strlen(keyString);
-//	time_t t;
-//	int byte;
-//	srand((unsigned) time(&t));
-//	for (int j = 0; j < MAX_MESSAGE_LENGTH; ++j) {
-//		byte = rand() % 256;
-//		keyString[j] = byte;
-//	}
-
-	printf("ORIGINAL XOR   KEY    = ENCRYPTED:\n");
-	for (int i = 0; messageIn[i] != '\0'; ++i) {
-	    int keyPos = i % keyLength;
-	    printf("%d ",keyPos);
-		for (int j = 0; j < 8; ++j) {
-			printf("%d", !!((messageIn[i] << j) & 0x80));
-
-		}
-
-		printf(" XOR ");
-            for (int j = 0; j < 8; ++j) {
-                printf("%d", !!((keyString[keyPos] << j) & 0x80));
-
-		}
-		printf(" = ");
-
-        messageIn[i] = messageIn[i] ^ keyString[keyPos];
-        for (int j = 0; j < 8; ++j) {
-			printf("%d", !!((messageIn[i] << j) & 0x80));
-		}
-		printf(" \n");
-
-
-	}
-}
-*/
-
-
 /* Main program */
 int main() {
 	struct sockaddr_in si_server, si_client;
 	struct sockaddr *server, *client;
-	int s, i, len = sizeof(si_server);
+	int s, len = sizeof(si_server);
 	char messagein[MAX_MESSAGE_LENGTH];
 	char messageout[MAX_MESSAGE_LENGTH];
 	int readBytes;
@@ -189,13 +143,13 @@ int main() {
 	printf("server now listening on UDP port %d...\n", LEETSPEAK_PORT);
 
 	/* big loop, looking for incoming messages from clients */
-	for (;;) {
+//	for (;;) {
 		/* clear out message buffers to be safe */
 		bzero(messagein, MAX_MESSAGE_LENGTH);
 		bzero(messageout, MAX_MESSAGE_LENGTH);
 
 		/* see what comes in from a client, if anything */
-		if ((readBytes = recvfrom(s, messagein, MAX_MESSAGE_LENGTH, 0, client, &len)) < 0) {
+		if ((readBytes = recvfrom(s, messagein, MAX_MESSAGE_LENGTH, 0, client, (socklen_t *) &len)) < 0) {
 			printf("Read error!\n");
 			return -1;
 		}
@@ -215,7 +169,7 @@ int main() {
 
 		/* send the result message back to the client */
 		sendto(s, messagein, strlen(messagein), 0, client, len);
-	}
+//	}
 
 	close(s);
 	return 0;

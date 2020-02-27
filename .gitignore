@@ -1,2 +1,4 @@
 # Project exclude paths
 /cmake-build-debug/
+/caesar.out
+/.idea/workspace-DESKTOP-4AA2PSO-2.xml

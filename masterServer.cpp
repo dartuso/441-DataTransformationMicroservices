@@ -8,6 +8,7 @@
 #include <iostream>
 #include "const.h"
 #include <cstring>
+#include <ctime>
 
 /* Optional verbose debugging output */
 #define DEBUG 1
@@ -20,6 +21,8 @@ char message[MAX_MESSAGE_LENGTH];
 void dispatchUDP(const string& choiceString);
 void callUDP(int port);
 
+void callServer(int port);
+void spinUpCall (int port);
 /* This is a signal handler to do graceful exit if needed */
 void catcher(int sig) {
     close(childsockfd);
@@ -32,10 +35,10 @@ int main() {
 	int parentsockfd;
 	int pid;
 
-//    /* Set up a signal handler to catch some weird termination conditions. */
-//    act.sa_handler = catcher;
-//    sigfillset(&(act.sa_mask));
-//    sigaction(SIGPIPE, &act, nullptr);
+    /* Set up a signal handler to catch some weird termination conditions. */
+    act.sa_handler = catcher;
+    sigfillset(&(act.sa_mask));
+    sigaction(SIGPIPE, &act, nullptr);
 
 	/* Initialize server sockaddr structure */
 	memset(&server, 0, sizeof(server));
@@ -134,22 +137,22 @@ void dispatchUDP(const string& choiceString){
 		cerr << "Performing choice: " << i << '\n';
 		switch (i) {
 			case IDENTITY:
-				callUDP(IDENTITY_PORT);
+				spinUpCall(IDENTITY_PORT);
 				break;
 			case REVERSE:
-				callUDP(REVERSE_PORT);
+                spinUpCall(REVERSE_PORT);
 				break;
 			case UPPER:
-				callUDP(UPPER_PORT);
+                spinUpCall(UPPER_PORT);
 				break;
 			case LOWER:
-				callUDP(LOWER_PORT);
+                spinUpCall(LOWER_PORT);
 				break;
 			case CAESAR:
-				callUDP(CAESAR_PORT);
+                spinUpCall(CAESAR_PORT);
 				break;
 			case LEET:
-				callUDP(LEETSPEAK_PORT);
+                spinUpCall(LEETSPEAK_PORT);
 				break;
 			default:
 				cerr <<"Error in selection!\n";
@@ -160,6 +163,50 @@ void dispatchUDP(const string& choiceString){
 	}
 }
 
+void spinUpCall (const int port){
+    int pid = fork();
+
+    /* use process id (pid) returned by fork to decide what to do next */
+    if (pid < 0)
+    {
+        cerr << "Error: fork() call failed!\n";
+        exit(1);
+    }
+    else if (pid == 0)
+    {
+        cout << "Client calling server: \n";
+        callServer(port);
+    } else {
+        sleep(1);
+        cout << "Parent sending message:" << endl;
+        callUDP(port);
+    }
+}
+
+void callServer(const int port) {
+
+    switch (port) {
+        case IDENTITY_PORT:
+            system("./identity.out");
+            break;
+        case REVERSE_PORT:
+            system("./reverse.out");
+            break;
+        case UPPER_PORT:
+            system("./upper.out");
+            break;
+        case LOWER_PORT:
+            system("./lower.out");
+            break;
+        case CAESAR_PORT:
+            system("./caesar.out");
+            break;
+        case LEETSPEAK_PORT:
+            system("./leetspeak.out");
+            break;
+    }
+    exit(0);
+}
 
 void callUDP(const int port) {
 	cout << "Port " << port << endl;
@@ -190,6 +237,18 @@ void callUDP(const int port) {
 		printf("sendto failed\n");
 
 	}
+
+
+	//300 Ms timeout via: https://stackoverflow.com/questions/13547721/udp-socket-set-timeout
+	struct timeval tv;
+	tv.tv_sec = 0;
+	tv.tv_usec = 300000;
+	if (setsockopt(s, SOL_SOCKET, SO_RCVTIMEO,&tv,sizeof(tv)) < 0) {
+		perror("Error");
+	}
+
+
+
 	bzero(message, MAX_MESSAGE_LENGTH);
 	if ((recvfrom(s, message, MAX_MESSAGE_LENGTH, 0, server, reinterpret_cast<socklen_t *>(&len))) == -1) {
 		strcpy(message, "Read Error\n");

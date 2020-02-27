@@ -76,13 +76,12 @@ int main()
     printf("server now listening on UDP port %d...\n", CAESAR_PORT);
 	
     /* big loop, looking for incoming messages from clients */
-    for( ; ; )
-      {
+//    for( ; ; )      {
 	/* clear out message buffers to be safe */
 	bzero(messagein, MAX_MESSAGE_LENGTH);
 
 	/* see what comes in from a client, if anything */
-	if ((readBytes=recvfrom(s, messagein, MAX_MESSAGE_LENGTH, 0, client, &len)) < 0)
+	if ((readBytes=recvfrom(s, messagein, MAX_MESSAGE_LENGTH, 0, client, (socklen_t *) &len)) < 0)
 	  {
 	    printf("Read error!\n");
 	    return -1;
@@ -103,5 +102,7 @@ int main()
 
 	/* send the result message back to the client */
 	sendto(s, messagein, strlen(messagein), 0, client, len);
-      }
+//      }
+	close(s);
+	return 0;
   }
