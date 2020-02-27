@@ -11,7 +11,7 @@
  * Anything that is not a letter of the alphabet remains unchanged.
  * For example, the message "I love cats!" would become "V ybir pngf!".
  */
- 
+
 /* Include files */
 #include <stdio.h>
 #include <unistd.h>
@@ -23,13 +23,11 @@
 #include <ctype.h>
 /* Manifest constants */
 
-/* Verbose debugging */
-#define DEBUG 1
+
 #define ROTATION 13
 #define ALPHABET 26
 
-int rotation(int c)
-{
+int rotation(int c) {
 
 	if (isalpha(c)) {
 		char alpha = islower(c) ? 'a' : 'A';
@@ -38,54 +36,48 @@ int rotation(int c)
 	return c;
 }
 
-void caesar (char * messageIn){
+void caesar(char *messageIn) {
 	unsigned int length = strlen(messageIn);
-	for(int j = 0; j < length; ++j){
+	for (int j = 0; j < length; ++j) {
 		messageIn[j] = rotation(messageIn[j]);
 	}
 }
 
 /* Main program */
-int main()
-  {
-    struct sockaddr_in si_server, si_client;
-    struct sockaddr *server, *client;
-    int s, len=sizeof(si_server);
-    char messagein[MAX_MESSAGE_LENGTH];
-    int readBytes;
+int main() {
+	struct sockaddr_in si_server, si_client;
+	struct sockaddr *server, *client;
+	int s, len = sizeof(si_server);
+	char messagein[MAX_MESSAGE_LENGTH];
+	int readBytes;
 
-    if ((s=socket(AF_INET, SOCK_DGRAM, IPPROTO_UDP))==-1)
-      {
-	printf("Could not setup a socket!\n");
-	return 1;
-      }
-    
-    memset((char *) &si_server, 0, sizeof(si_server));
-    si_server.sin_family = AF_INET;
-    si_server.sin_port = htons(CAESAR_PORT);
-    si_server.sin_addr.s_addr = htonl(INADDR_ANY);
-    server = (struct sockaddr *) &si_server;
-    client = (struct sockaddr *) &si_client;
+	if ((s = socket(AF_INET, SOCK_DGRAM, IPPROTO_UDP)) == -1) {
+		printf("Could not setup a socket!\n");
+		return 1;
+	}
 
-    if (bind(s, server, sizeof(si_server))==-1)
-      {
-	printf("Could not bind to port %d!\n", CAESAR_PORT);
-	return 1;
-      }
-    fprintf(stderr, "Welcome! I am the caesar cipher server!!\n");
-    printf("server now listening on UDP port %d...\n", CAESAR_PORT);
-	
-    /* big loop, looking for incoming messages from clients */
-//    for( ; ; )      {
+	memset((char *) &si_server, 0, sizeof(si_server));
+	si_server.sin_family = AF_INET;
+	si_server.sin_port = htons(CAESAR_PORT);
+	si_server.sin_addr.s_addr = htonl(INADDR_ANY);
+	server = (struct sockaddr *) &si_server;
+	client = (struct sockaddr *) &si_client;
+
+	if (bind(s, server, sizeof(si_server)) == -1) {
+		printf("Could not bind to port %d!\n", CAESAR_PORT);
+		return 1;
+	}
+	fprintf(stderr, "Welcome! I am the caesar cipher server!!\n");
+	printf("server now listening on UDP port %d...\n", CAESAR_PORT);
+
 	/* clear out message buffers to be safe */
 	bzero(messagein, MAX_MESSAGE_LENGTH);
 
 	/* see what comes in from a client, if anything */
-	if ((readBytes=recvfrom(s, messagein, MAX_MESSAGE_LENGTH, 0, client, (socklen_t *) &len)) < 0)
-	  {
-	    printf("Read error!\n");
-	    return -1;
-	  }
+	if ((readBytes = recvfrom(s, messagein, MAX_MESSAGE_LENGTH, 0, client, (socklen_t *) &len)) < 0) {
+		printf("Read error!\n");
+		return -1;
+	}
 #ifdef DEBUG
 	else printf("Server received %d bytes\n", readBytes);
 #endif
@@ -102,7 +94,7 @@ int main()
 
 	/* send the result message back to the client */
 	sendto(s, messagein, strlen(messagein), 0, client, len);
-//      }
+
 	close(s);
 	return 0;
-  }
+}

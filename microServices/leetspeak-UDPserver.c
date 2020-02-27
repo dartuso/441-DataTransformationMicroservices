@@ -24,9 +24,6 @@
 #include <ctype.h>
 #include "../const.h"
 
-/* Verbose debugging */
-#define DEBUG 1
-
 
 /*
  * Encodes in leet
@@ -34,84 +31,7 @@
  * Translation based on:
  * http://www.robertecker.com/hp/research/leet-converter.php?lang=en
  * */
-void leet(char *messagein){
-    int lengthString = strlen(messagein);
-    for (int i = 0; i < lengthString; ++i) {
-        if (isalpha(messagein[i]))
-            messagein[i] = tolower(messagein[i]);
-
-        switch (messagein[i]){
-            case 'a':
-                messagein[i] = '4';
-                break;
-            case '4':
-                messagein[i] = 'a';
-                break;
-            case 'b':
-                messagein[i] = '8';
-                break;
-            case '8':
-                messagein[i] = 'b';
-                break;
-            case 'c':
-                messagein[i] = '<';
-                break;
-            case '<':
-                messagein[i] = 'c';
-                break;
-            case 'd':
-                messagein[i] = ']';
-                break;
-            case ']':
-                messagein[i] = 'd';
-                break;
-            case 'e':
-                messagein[i] = '3';
-                break;
-            case '3':
-                messagein[i] = 'e';
-                break;
-            case 'i':
-                messagein[i] = '1';
-                break;
-            case '1':
-                messagein[i] = 'i';
-                break;
-            case 'o':
-                messagein[i] = '0';
-                break;
-            case '0':
-                messagein[i] = 'o';
-                break;
-            case 's':
-                messagein[i] = '5';
-                break;
-            case '5':
-                messagein[i] = 's';
-                break;
-            case 't':
-                messagein[i] = '7';
-                break;
-            case '7':
-                messagein[i] = 't';
-                break;
-            case 'x':
-                messagein[i] = '%';
-                break;
-            case '%':
-                messagein[i] = 'x';
-                break;
-            case 'z':
-                messagein[i] = '2';
-                break;
-            case '2':
-                messagein[i] = 'z';
-                break;
-            default:
-                break;
-        }
-    }
-}
+void leet(char *messagein);
 
 
 /* Main program */
@@ -142,8 +62,6 @@ int main() {
 	fprintf(stderr, "Welcome! I am the one time pad server!!\n");
 	printf("server now listening on UDP port %d...\n", LEETSPEAK_PORT);
 
-	/* big loop, looking for incoming messages from clients */
-//	for (;;) {
 		/* clear out message buffers to be safe */
 		bzero(messagein, MAX_MESSAGE_LENGTH);
 		bzero(messageout, MAX_MESSAGE_LENGTH);
@@ -169,8 +87,87 @@ int main() {
 
 		/* send the result message back to the client */
 		sendto(s, messagein, strlen(messagein), 0, client, len);
-//	}
 
 	close(s);
 	return 0;
+}
+
+void leet(char *messagein) {
+	int lengthString = strlen(messagein);
+	for (int i = 0; i < lengthString; ++i) {
+		if (isalpha(messagein[i])) {
+			messagein[i] = tolower(messagein[i]);
+		}
+
+		switch (messagein[i]) {
+			case 'a':
+				messagein[i] = '4';
+				break;
+			case '4':
+				messagein[i] = 'a';
+				break;
+			case 'b':
+				messagein[i] = '8';
+				break;
+			case '8':
+				messagein[i] = 'b';
+				break;
+			case 'c':
+				messagein[i] = '<';
+				break;
+			case '<':
+				messagein[i] = 'c';
+				break;
+			case 'd':
+				messagein[i] = ']';
+				break;
+			case ']':
+				messagein[i] = 'd';
+				break;
+			case 'e':
+				messagein[i] = '3';
+				break;
+			case '3':
+				messagein[i] = 'e';
+				break;
+			case 'i':
+				messagein[i] = '1';
+				break;
+			case '1':
+				messagein[i] = 'i';
+				break;
+			case 'o':
+				messagein[i] = '0';
+				break;
+			case '0':
+				messagein[i] = 'o';
+				break;
+			case 's':
+				messagein[i] = '5';
+				break;
+			case '5':
+				messagein[i] = 's';
+				break;
+			case 't':
+				messagein[i] = '7';
+				break;
+			case '7':
+				messagein[i] = 't';
+				break;
+			case 'x':
+				messagein[i] = '%';
+				break;
+			case '%':
+				messagein[i] = 'x';
+				break;
+			case 'z':
+				messagein[i] = '2';
+				break;
+			case '2':
+				messagein[i] = 'z';
+				break;
+			default:
+				break;
+		}
+	}
 }

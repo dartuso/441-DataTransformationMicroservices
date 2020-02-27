@@ -21,9 +21,6 @@
 #include <ctype.h>
 #include "../const.h"
 
-/* Verbose debugging */
-#define DEBUG 1
-
 /* Main program */
 int main() {
 	struct sockaddr_in si_server, si_client;
@@ -53,35 +50,34 @@ int main() {
 	fprintf(stderr, "Welcome! I am the upper case server!!\n");
 	printf("server now listening on UDP port %d...\n", UPPER_PORT);
 
-	/* big loop, looking for incoming messages from clients */
-//	for (;;) {
-		/* clear out message buffers to be safe */
-		bzero(messagein, MAX_MESSAGE_LENGTH);
-		bzero(messageout, MAX_MESSAGE_LENGTH);
 
-		/* see what comes in from a client, if anything */
-		if ((readBytes = recvfrom(s, messagein, MAX_MESSAGE_LENGTH, 0, client, (socklen_t *) &len)) < 0) {
-			printf("Read error!\n");
-			return -1;
-		}
+	/* clear out message buffers to be safe */
+	bzero(messagein, MAX_MESSAGE_LENGTH);
+	bzero(messageout, MAX_MESSAGE_LENGTH);
+
+	/* see what comes in from a client, if anything */
+	if ((readBytes = recvfrom(s, messagein, MAX_MESSAGE_LENGTH, 0, client, (socklen_t *) &len)) < 0) {
+		printf("Read error!\n");
+		return -1;
+	}
 #ifdef DEBUG
-		else printf("Server received %d bytes\n", readBytes);
+	else printf("Server received %d bytes\n", readBytes);
 #endif
 
-		printf("  server received \"%s\" from IP %s port %d\n",
-		       messagein, inet_ntoa(si_client.sin_addr), ntohs(si_client.sin_port));
+	printf("  server received \"%s\" from IP %s port %d\n",
+	       messagein, inet_ntoa(si_client.sin_addr), ntohs(si_client.sin_port));
 
-		for (int j = 0; j < strlen(messagein); ++j) {
-			messageout[j] = toupper(messagein[j]);
-		}
+	for (int j = 0; j < strlen(messagein); ++j) {
+		messageout[j] = toupper(messagein[j]);
+	}
 
 #ifdef DEBUG
-		printf("Server sending back the message: \"%s\"\n", messageout);
+	printf("Server sending back the message: \"%s\"\n", messageout);
 #endif
 
-		/* send the result message back to the client */
-		sendto(s, messageout, strlen(messageout), 0, client, len);
-//	}
+	/* send the result message back to the client */
+	sendto(s, messageout, strlen(messageout), 0, client, len);
+
 
 	close(s);
 	return 0;
