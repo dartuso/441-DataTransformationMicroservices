@@ -15,7 +15,7 @@
 
 using namespace std;
 /* Global variable */
-int childsockfd;
+int childSocketFD;
 char message[MAX_MESSAGE_LENGTH];
 
 void dispatchUDP(const string& choiceString);
@@ -25,20 +25,20 @@ void callServer(int port);
 void spinUpCall (int port);
 /* This is a signal handler to do graceful exit if needed */
 void catcher(int sig) {
-    close(childsockfd);
-    exit(sig);
+	close(childSocketFD);
+	exit(sig);
 }
 
 int main() {
 	struct sockaddr_in server{};
 	static struct sigaction act;
-	int parentsockfd;
+	int ParentSocketFD;
 	int pid;
 
-    /* Set up a signal handler to catch some weird termination conditions. */
-    act.sa_handler = catcher;
-    sigfillset(&(act.sa_mask));
-    sigaction(SIGPIPE, &act, nullptr);
+	/* Set up a signal handler to catch some weird termination conditions. */
+	act.sa_handler = catcher;
+	sigfillset(&(act.sa_mask));
+	sigaction(SIGPIPE, &act, nullptr);
 
 	/* Initialize server sockaddr structure */
 	memset(&server, 0, sizeof(server));
@@ -47,29 +47,27 @@ int main() {
 	server.sin_addr.s_addr = htonl(INADDR_ANY);
 
 	/* set up the transport-level end point to use TCP */
-	if ((parentsockfd = socket(PF_INET, SOCK_STREAM, 0)) == -1) {
+	if ((ParentSocketFD = socket(PF_INET, SOCK_STREAM, 0)) == -1) {
 		fprintf(stderr, "Error: socket() call failed!\n");
 		exit(1);
 	}
 
 	/* bind a specific address and port to the end point */
-	if (bind(parentsockfd, (struct sockaddr *) &server, sizeof(struct sockaddr_in)) == -1) {
+	if (bind(ParentSocketFD, (struct sockaddr *) &server, sizeof(struct sockaddr_in)) == -1) {
 		fprintf(stderr, "Error: bind() call failed!\n");
 		exit(1);
 	}
 
 	/* start listening for incoming connections from clients */
-	if (listen(parentsockfd, 5) == -1) {
+	if (listen(ParentSocketFD, 5) == -1) {
 		cerr << "Error: listen() call failed!\n";
 		exit(1);
 	}
 
 
-	for (;;)
-	{
+	for (;;) {
 		/* accept a connection */
-		if ((childsockfd = accept(parentsockfd, NULL, NULL)) == -1)
-		{
+		if ((childSocketFD = accept(ParentSocketFD, nullptr, nullptr)) == -1) {
 			cerr << "Error: accept() call failed!\n";
 			exit(1);
 		}
@@ -83,18 +81,16 @@ int main() {
 			cerr << "Error: fork() call failed!\n";
 			exit(1);
 		}
-		else if (pid == 0)
-		{
+		else if (pid == 0) {
 			/* the child process is the one doing the "then" part */
 			/* don't need the parent listener socket that was inherited */
-			close(parentsockfd);
+			close(ParentSocketFD);
 
 			/* obtain the message from this client */
-			while (recv(childsockfd, message, MAX_MESSAGE_LENGTH, 0) > 0)
-			{
+			while (recv(childSocketFD, message, MAX_MESSAGE_LENGTH, 0) > 0) {
 				string choiceString;
 				string messageString;
-				string combinedMessage (message);
+				string combinedMessage(message);
 				const int beginning = 0;
 
 				int choiceEnd = combinedMessage.find_first_of('$');
@@ -109,7 +105,7 @@ int main() {
 				dispatchUDP(choiceString);
 
 				/* send the result message back to the client */
-				send(childsockfd, message, strlen(message), 0);
+				send(childSocketFD, message, strlen(message), 0);
 
 				/* clear out message strings again to be safe */
 				bzero(message, MAX_MESSAGE_LENGTH);
@@ -117,17 +113,16 @@ int main() {
 
 			/* when client is no longer sending information to us, */
 			/* the socket can be closed and the child process terminated */
-			close(childsockfd);
+			close(childSocketFD);
 			exit(0);
 		} /* end of then part for child */
-		else
-		{
+		else {
 			/* the parent process is the one doing the "else" part */
 			cout << "Created child process to handle that client\n";
 			cout << "Parent going back to job of listening...\n\n";
 
-			/* parent doesn't need the childsockfd */
-			close(childsockfd);
+			/* parent doesn't need the childSocketFD */
+			close(childSocketFD);
 		}
 	}
 }
@@ -194,16 +189,19 @@ void callServer(const int port) {
             break;
         case UPPER_PORT:
             system("./upper.out");
-            break;
-        case LOWER_PORT:
-            system("./lower.out");
-            break;
-        case CAESAR_PORT:
-            system("./caesar.out");
-            break;
-        case LEETSPEAK_PORT:
-            system("./leetspeak.out");
-            break;
+		    break;
+	    case LOWER_PORT:
+		    system("./lower.out");
+		    break;
+	    case CAESAR_PORT:
+		    system("./caesar.out");
+		    break;
+	    case LEETSPEAK_PORT:
+		    system("./leetspeak.out");
+		    break;
+	    default:
+		    cout << "Error invalid port!\n";
+		    break;
     }
     exit(0);
 }
@@ -240,13 +238,12 @@ void callUDP(const int port) {
 
 
 	//300 Ms timeout via: https://stackoverflow.com/questions/13547721/udp-socket-set-timeout
-	struct timeval tv;
+	struct timeval tv{};
 	tv.tv_sec = 0;
 	tv.tv_usec = 300000;
-	if (setsockopt(s, SOL_SOCKET, SO_RCVTIMEO,&tv,sizeof(tv)) < 0) {
+	if (setsockopt(s, SOL_SOCKET, SO_RCVTIMEO, &tv, sizeof(tv)) < 0) {
 		perror("Error");
 	}
-
 
 
 	bzero(message, MAX_MESSAGE_LENGTH);
