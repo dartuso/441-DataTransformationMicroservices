@@ -1,9 +1,8 @@
-/* Simple program to demonstrate a UDP-based server.
- * Loops forever.
- * Receives a word from the client. 
- * Sends back the length of that word to the client.
- * 
- * Compile using "cc -o wordlen-UDPserver wordlen-UDPserver.c"
+
+/**
+ * caesar.c
+ * Daniel Artuso
+ * Compile using "cc -o caesar caesar.c"
  *
  * Caesar: This transformation applies a simple Caesar cipher to all alphabetic symbols (i.e., a-zA-Z)
  * in a message. Recall that a Caesar cipher adds a fixed offset to each letter (with wraparound).
@@ -27,6 +26,14 @@
 #define ROTATION 13
 #define ALPHABET 26
 
+/**
+ * rotation
+ * Rotates letter ROTATION amount of letters
+ * @param c
+ * Character to be rotated
+ * @return
+ * returns rotated character
+ */
 int rotation(int c) {
 
 	if (isalpha(c)) {
@@ -36,6 +43,11 @@ int rotation(int c) {
 	return c;
 }
 
+/**
+ * caesar
+ * @param messageIn
+ * Message to apply caesar to
+ */
 void caesar(char *messageIn) {
 	unsigned int length = strlen(messageIn);
 	for (int j = 0; j < length; ++j) {
@@ -43,7 +55,15 @@ void caesar(char *messageIn) {
 	}
 }
 
-/* Main program */
+/**
+ * main program
+ *
+ * receives string from client (mainserver)
+ * applies caesar cipher
+ * send back to client
+ * exit
+ * @return
+ */
 int main() {
 	struct sockaddr_in si_server, si_client;
 	struct sockaddr *server, *client;
