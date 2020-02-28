@@ -1,10 +1,6 @@
-/* Simple program to demonstrate a UDP-based server.
- * Loops forever.
- * Receives a word from the client. 
- * Sends back the length of that word to the client.
- * 
- * Compile using "cc -o identity wordlen-UDPserver.c"
- *
+/*
+ * CPSC 441 Assignment 2
+ * Daniel Artuso
  * Identity: The identity transformation does nothing to the data,
  *      but merely returns exactly what was received. It is also known as an echo server.
  */

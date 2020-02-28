@@ -3,7 +3,7 @@ project(441ASG2)
 
 set(CMAKE_CXX_STANDARD 14)
 
-add_executable(Server bonus.cpp const.h caesar.h caesar.c identity.h identity.c lower.h lower.c reverse.h reverse.c upper.h upper.c yours.h yours.c)
+add_executable(Server mainserver.cpp const.h caesar.h caesar.c identity.h identity.c lower.h lower.c reverse.h reverse.c upper.h upper.c yours.h yours.c)
 add_executable(Client mainclient.cpp const.h)
 #Microservices
 add_executable(caesar caesar.c const.h caesar.h)

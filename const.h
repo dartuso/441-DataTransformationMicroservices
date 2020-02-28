@@ -1,5 +1,5 @@
 //
-// Created by dasa9 on 2020-02-25.
+// Created by Daniel on 2020-02-25.
 //
 
 #ifndef INC_441ASG2_CONST_H

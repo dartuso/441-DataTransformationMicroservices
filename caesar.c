@@ -1,9 +1,8 @@
 
 /**
- * caesar.c
+ * CPSC 441 Assignment 2
  * Daniel Artuso
- * Compile using "cc -o caesar caesar.c"
- *
+ * caesar.c
  * Caesar: This transformation applies a simple Caesar cipher to all alphabetic symbols (i.e., a-zA-Z)
  * in a message. Recall that a Caesar cipher adds a fixed offset to each letter (with wraparound).
  * Please use a fixed offset of 13, and preserve the case of each letter.

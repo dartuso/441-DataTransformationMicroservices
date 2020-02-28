@@ -4,13 +4,13 @@ clean:
 	rm -f *.out
 
 server:
-	g++ bonus.cpp const.h caesar.c lower.c identity.c reverse.c upper.c yours.c -o mainserver.out
+	g++ mainserver.cpp const.h caesar.c lower.c identity.c reverse.c upper.c yours.c -o mainserver.out
 
 client:
 	g++ mainclient.cpp const.h -o mainclient.out
 
 runServer: clean server
-	./bonus.out
+	./mainserver.out
 
 runClient: clean client
 	./mainclient.out

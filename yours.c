@@ -1,17 +1,12 @@
-/* Simple program to demonstrate a UDP-based server.
- * Loops forever.
- * Receives a word from the client. 
- * Sends back the length of that word to the client.
- * 
- * Compile using "cc -o wordlen-UDPserver wordlen-UDPserver.c"
+/*
+ * CPSC 441 Assignment 2
+ * Daniel Artuso
  *
- * Yours: Design your own simple data transformation that is different from those above,
- * somewhat interesting, reasonably easy to implement and explain, and
- * applicable to one or more of the data bytes in a typical message.
-
- Uses one time pad for nearly perfect encryption (not perfect since rand() is pseudorandom)
- http://www6.uniovi.es/cscene/CS4/CS4-03.html
-	since the key is not saved it will be difficult to decrypt however
+ * Encodes/Decodes in leet speak
+ * (Decoding loses upper/lower case of original string)
+ *
+ * Translation based on:
+ * http://www.robertecker.com/hp/research/leet-converter.php?lang=en
  */
 
 /* Include files */

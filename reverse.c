@@ -1,9 +1,6 @@
-/* Simple program to demonstrate a UDP-based server.
- * Loops forever.
- * Receives a word from the client. 
- * Sends back the length of that word to the client.
- * 
- * Compile using "cc -o wordlen-UDPserver wordlen-UDPserver.c"
+/*
+ * CPSC 441 Assignment 2
+ * Daniel Artuso
  *
  * Reverse: This transformation reverses the order of the bytes in a message,
  *      and returns the result back. For example, the message "dog" would become "god".

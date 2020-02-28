@@ -1,9 +1,6 @@
-/* Simple program to demonstrate a UDP-based server.
- * Loops forever.
- * Receives a word from the client. 
- * Sends back the length of that word to the client.
- * 
- * Compile using "cc -o wordlen-UDPserver wordlen-UDPserver.c"
+/*
+ * CPSC 441 Assignment 2
+ * Daniel Artuso
  *
  * Lower: This transformation changes all upper-case alphabetic symbols (i.e., A-Z)
  * in a message into lower case (i.e., a-z). Anything that is already lower case remains unchanged,
