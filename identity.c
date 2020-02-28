@@ -3,7 +3,7 @@
  * Receives a word from the client. 
  * Sends back the length of that word to the client.
  * 
- * Compile using "cc -o wordlen-UDPserver wordlen-UDPserver.c"
+ * Compile using "cc -o identity wordlen-UDPserver.c"
  *
  * Identity: The identity transformation does nothing to the data,
  *      but merely returns exactly what was received. It is also known as an echo server.
@@ -20,7 +20,7 @@
 
 
 /* Main program */
-int main() {
+void identityServer() {
 	struct sockaddr_in si_server, si_client;
 	struct sockaddr *server, *client;
 	int s, len = sizeof(si_server);

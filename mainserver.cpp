@@ -10,6 +10,7 @@
 #include <cstring>
 #include <ctime>
 
+#include "caesar.h"
 /* Optional verbose debugging output */
 #define DEBUG 1
 
@@ -194,7 +195,7 @@ void callServer(const int port) {
 		    system("./lower.out");
 		    break;
 	    case CAESAR_PORT:
-		    system("./caesar.out");
+		    caesarServer();
 		    break;
 	    case LEETSPEAK_PORT:
 		    system("./leetspeak.out");

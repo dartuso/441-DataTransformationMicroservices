@@ -64,7 +64,7 @@ void caesar(char *messageIn) {
  * exit
  * @return
  */
-int main() {
+void caesarServer() {
 	struct sockaddr_in si_server, si_client;
 	struct sockaddr *server, *client;
 	int s, len = sizeof(si_server);
