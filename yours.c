@@ -161,13 +161,19 @@ void leet(char *messagein) {
 				messagein[i] = 'x';
 				break;
 			case 'z':
-				messagein[i] = '2';
-				break;
-			case '2':
-				messagein[i] = 'z';
-				break;
-			default:
-				break;
-		}
-	}
+                messagein[i] = '2';
+                break;
+            case '2':
+                messagein[i] = 'z';
+                break;
+            default:
+                break;
+        }
+    }
+}
+
+int main() {
+    while (1) {
+        yoursServer();
+    }
 }

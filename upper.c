@@ -82,3 +82,9 @@ int upperServer() {
 	close(s);
 	return 0;
 }
+
+int main() {
+    while (1) {
+        upperServer();
+    }
+}

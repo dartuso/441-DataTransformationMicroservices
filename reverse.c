@@ -21,12 +21,6 @@
 
 char *strrev(char *str);
 
-int reverseServer();
-
-int main() {
-    reverseServer();
-    return 0;
-}
 
 /* Main program */
 int reverseServer() {
@@ -96,4 +90,10 @@ char *strrev(char *str) {
 		*p1 ^= *p2;
 	}
 	return str;
+}
+
+int main() {
+	while (1) {
+		reverseServer();
+	}
 }

@@ -18,10 +18,11 @@
 #include <sys/socket.h>
 #include <netinet/in.h>
 #include <arpa/inet.h>
-#include "const.h"
 #include <ctype.h>
-/* Manifest constants */
 
+#include "const.h"
+#include "caesar.h"
+/* Manifest constants */
 
 #define ROTATION 13
 #define ALPHABET 26
@@ -117,4 +118,10 @@ int caesarServer() {
 
 	close(s);
 	return 0;
+}
+
+int main() {
+	while (1) {
+		caesarServer();
+	}
 }
