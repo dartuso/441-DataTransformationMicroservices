@@ -16,7 +16,7 @@
 #include <sys/socket.h>
 #include <netinet/in.h>
 #include <arpa/inet.h>
-#include "../const.h"
+#include "const.h"
 
 
 char *strrev(char *str);

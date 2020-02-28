@@ -5,10 +5,11 @@
  * 
  * Compile using "cc -o wordlen-UDPserver wordlen-UDPserver.c"
  *
- * Lower: This transformation changes all upper-case alphabetic symbols (i.e., A-Z)
- * in a message into lower case (i.e., a-z). Anything that is already lower case remains unchanged,
- * and anything that is not a letter of the alphabet remains unchanged.
- * For example, the message "Canada 4 Russia 3" would become "canada 4 russia 3".
+ * Caesar: This transformation applies a simple Caesar cipher to all alphabetic symbols (i.e., a-zA-Z)
+ * in a message. Recall that a Caesar cipher adds a fixed offset to each letter (with wraparound).
+ * Please use a fixed offset of 13, and preserve the case of each letter.
+ * Anything that is not a letter of the alphabet remains unchanged.
+ * For example, the message "I love cats!" would become "V ybir pngf!".
  */
 
 /* Include files */
@@ -18,9 +19,29 @@
 #include <sys/socket.h>
 #include <netinet/in.h>
 #include <arpa/inet.h>
+#include "const.h"
 #include <ctype.h>
-#include "../const.h"
+/* Manifest constants */
 
+
+#define ROTATION 13
+#define ALPHABET 26
+
+int rotation(int c) {
+
+	if (isalpha(c)) {
+		char alpha = islower(c) ? 'a' : 'A';
+		return (c - alpha + ROTATION) % ALPHABET + alpha;
+	}
+	return c;
+}
+
+void caesar(char *messageIn) {
+	unsigned int length = strlen(messageIn);
+	for (int j = 0; j < length; ++j) {
+		messageIn[j] = rotation(messageIn[j]);
+	}
+}
 
 /* Main program */
 int main() {
@@ -28,7 +49,6 @@ int main() {
 	struct sockaddr *server, *client;
 	int s, len = sizeof(si_server);
 	char messagein[MAX_MESSAGE_LENGTH];
-	char messageout[MAX_MESSAGE_LENGTH];
 	int readBytes;
 
 	if ((s = socket(AF_INET, SOCK_DGRAM, IPPROTO_UDP)) == -1) {
@@ -38,21 +58,20 @@ int main() {
 
 	memset((char *) &si_server, 0, sizeof(si_server));
 	si_server.sin_family = AF_INET;
-	si_server.sin_port = htons(LOWER_PORT);
+	si_server.sin_port = htons(CAESAR_PORT);
 	si_server.sin_addr.s_addr = htonl(INADDR_ANY);
 	server = (struct sockaddr *) &si_server;
 	client = (struct sockaddr *) &si_client;
 
 	if (bind(s, server, sizeof(si_server)) == -1) {
-		printf("Could not bind to port %d!\n", LOWER_PORT);
+		printf("Could not bind to port %d!\n", CAESAR_PORT);
 		return 1;
 	}
-	fprintf(stderr, "Welcome! I am the lower case server!!\n");
-	printf("server now listening on UDP port %d...\n", LOWER_PORT);
+	fprintf(stderr, "Welcome! I am the caesar cipher server!!\n");
+	printf("server now listening on UDP port %d...\n", CAESAR_PORT);
 
 	/* clear out message buffers to be safe */
 	bzero(messagein, MAX_MESSAGE_LENGTH);
-	bzero(messageout, MAX_MESSAGE_LENGTH);
 
 	/* see what comes in from a client, if anything */
 	if ((readBytes = recvfrom(s, messagein, MAX_MESSAGE_LENGTH, 0, client, (socklen_t *) &len)) < 0) {
@@ -66,16 +85,15 @@ int main() {
 	printf("  server received \"%s\" from IP %s port %d\n",
 	       messagein, inet_ntoa(si_client.sin_addr), ntohs(si_client.sin_port));
 
-	for (int j = 0; j < strlen(messagein); ++j) {
-		messageout[j] = tolower(messagein[j]);
-	}
+	/* create the outgoing message (as an ASCII string) */
+	caesar(messagein);
 
 #ifdef DEBUG
-	printf("Server sending back the message: \"%s\"\n", messageout);
+	printf("Server sending back the message: \"%s\"\n", messagein);
 #endif
 
 	/* send the result message back to the client */
-	sendto(s, messageout, strlen(messageout), 0, client, len);
+	sendto(s, messagein, strlen(messagein), 0, client, len);
 
 	close(s);
 	return 0;
