@@ -9,20 +9,20 @@ server: masterServer.cpp const.h
 client: masterClient.cpp const.h
 	g++ masterClient.cpp const.h -o masterClient.out
 
-caeasr: microServices/caesar-UDPserver.c const.h
+caeasr: microServices/caesar.c const.h
 	g++ microServices/caesar-UDPserver.c const.h -o caesar.out
 
-identity: microServices/identity-UDPserver.c const.h
+identity: microServices/identity.c const.h
 	g++ microServices/identity-UDPserver.c const.h -o identity.out
 
-leetspeak: microServices/leetspeak-UDPserver.c const.h
+leetspeak: microServices/yours.c const.h
 	g++ microServices/leetspeak-UDPserver.c const.h -o leetspeak.out
 
-lower: microServices/lower-UDPserver.c const.h
+lower: microServices/lower.c const.h
 	g++ microServices/lower-UDPserver.c const.h -o lower.out
 
-reverse: microServices/reverse-UDPserver.c const.h
+reverse: microServices/reverse.c const.h
 	g++ microServices/reverse-UDPserver.c const.h -o reverse.out
 
-upper: microServices/upper-UDPserver.c const.h
+upper: microServices/upper.c const.h
 	g++ microServices/upper-UDPserver.c const.h -o upper.out
