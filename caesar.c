@@ -119,9 +119,3 @@ int caesarServer() {
 	close(s);
 	return 0;
 }
-
-int main() {
-	while (1) {
-		caesarServer();
-	}
-}

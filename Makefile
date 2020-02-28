@@ -1,13 +1,19 @@
-build: server client caeasr identity leetspeak lower reverse upper
+build: server client
 
 clean:
 	rm -f *.out
 
-server: masterServer.cpp const.h caesar.h lower.h identity.h reverse.h upper.h yours.h
-	g++ masterServer.cpp const.h caesar.h lower.h identity.h reverse.h upper.h yours.h -o masterServer.out
+server:
+	g++ bonus.cpp const.h caesar.c lower.c identity.c reverse.c upper.c yours.c -o mainserver.out
 
-client: masterClient.cpp const.h
-	g++ masterClient.cpp const.h -o masterClient.out
+client:
+	g++ mainclient.cpp const.h -o mainclient.out
+
+runServer: clean server
+	./bonus.out
+
+runClient: clean client
+	./mainclient.out
 
 #caeasr: caesar.c const.h
 #	g++ microServices/caesar-UDPserver.c const.h -o caesar.out

@@ -17,7 +17,7 @@
 #include <netinet/in.h>
 #include <arpa/inet.h>
 #include "const.h"
-
+#include "identity.h"
 
 /* Main program */
 int identityServer() {
@@ -75,10 +75,4 @@ int identityServer() {
 
 	close(s);
     return 0;
-}
-
-int main() {
-	while (1) {
-		identityServer();
-	}
 }

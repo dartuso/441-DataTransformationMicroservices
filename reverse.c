@@ -91,9 +91,3 @@ char *strrev(char *str) {
 	}
 	return str;
 }
-
-int main() {
-	while (1) {
-		reverseServer();
-	}
-}

@@ -171,9 +171,3 @@ void leet(char *messagein) {
         }
     }
 }
-
-int main() {
-    while (1) {
-        yoursServer();
-    }
-}
