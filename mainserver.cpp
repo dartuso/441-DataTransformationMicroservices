@@ -6,11 +6,16 @@
 #include <csignal>
 #include <arpa/inet.h>
 #include <iostream>
-#include "const.h"
 #include <cstring>
 #include <ctime>
 
+#include "const.h"
 #include "caesar.h"
+#include "identity.h"
+#include "lower.h"
+#include "reverse.h"
+#include "upper.h"
+#include "yours.h"
 /* Optional verbose debugging output */
 #define DEBUG 1
 
@@ -19,7 +24,8 @@ using namespace std;
 int childSocketFD;
 char message[MAX_MESSAGE_LENGTH];
 
-void dispatchUDP(const string& choiceString);
+void dispatchUDP(const string &choiceString);
+
 void callUDP(int port);
 
 void callServer(int port);
@@ -180,31 +186,31 @@ void spinUpCall (const int port){
 }
 
 void callServer(const int port) {
-
+    int returnStatus = 0;
     switch (port) {
         case IDENTITY_PORT:
-            system("./identity.out");
+            returnStatus = identityServer();
             break;
         case REVERSE_PORT:
-            system("./reverse.out");
+            returnStatus = reverseServer();
             break;
         case UPPER_PORT:
-            system("./upper.out");
-		    break;
-	    case LOWER_PORT:
-		    system("./lower.out");
-		    break;
-	    case CAESAR_PORT:
-		    caesarServer();
-		    break;
-	    case LEETSPEAK_PORT:
-		    system("./leetspeak.out");
-		    break;
-	    default:
-		    cout << "Error invalid port!\n";
-		    break;
+            returnStatus = upperServer();
+            break;
+        case LOWER_PORT:
+            returnStatus = lowerServer();
+            break;
+        case CAESAR_PORT:
+            returnStatus = caesarServer();
+            break;
+        case LEETSPEAK_PORT:
+            returnStatus = yoursServer();
+            break;
+        default:
+            cout << "Error invalid port!\n";
+            break;
     }
-    exit(0);
+    exit(returnStatus);
 }
 
 void callUDP(const int port) {

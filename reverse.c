@@ -21,19 +21,25 @@
 
 char *strrev(char *str);
 
+int reverseServer();
+
+int main() {
+    reverseServer();
+    return 0;
+}
 
 /* Main program */
-int main() {
-	struct sockaddr_in si_server, si_client;
-	struct sockaddr *server, *client;
-	int s, len = sizeof(si_server);
-	char messagein[MAX_MESSAGE_LENGTH];
-	char *messageout = NULL;
-	int readBytes;
+int reverseServer() {
+    struct sockaddr_in si_server, si_client;
+    struct sockaddr *server, *client;
+    int s, len = sizeof(si_server);
+    char messagein[MAX_MESSAGE_LENGTH];
+    char *messageout = NULL;
+    int readBytes;
 
-	if ((s = socket(AF_INET, SOCK_DGRAM, IPPROTO_UDP)) == -1) {
-		printf("Could not setup a socket!\n");
-		return 1;
+    if ((s = socket(AF_INET, SOCK_DGRAM, IPPROTO_UDP)) == -1) {
+        printf("Could not setup a socket!\n");
+        return 1;
 	}
 
 	memset((char *) &si_server, 0, sizeof(si_server));

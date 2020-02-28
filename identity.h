@@ -5,6 +5,6 @@
 #ifndef INC_441ASG2_IDENTITY_H
 #define INC_441ASG2_IDENTITY_H
 
-void identityServer();
+int identityServer();
 
 #endif //INC_441ASG2_IDENTITY_H

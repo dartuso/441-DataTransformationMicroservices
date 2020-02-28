@@ -22,17 +22,17 @@
 #include "const.h"
 
 /* Main program */
-int main() {
-	struct sockaddr_in si_server, si_client;
-	struct sockaddr *server, *client;
-	int s, len = sizeof(si_server);
-	char messagein[MAX_MESSAGE_LENGTH];
-	char messageout[MAX_MESSAGE_LENGTH];
-	int readBytes;
+int upperServer() {
+    struct sockaddr_in si_server, si_client;
+    struct sockaddr *server, *client;
+    int s, len = sizeof(si_server);
+    char messagein[MAX_MESSAGE_LENGTH];
+    char messageout[MAX_MESSAGE_LENGTH];
+    int readBytes;
 
 
-	if ((s = socket(AF_INET, SOCK_DGRAM, IPPROTO_UDP)) == -1) {
-		printf("Could not setup a socket!\n");
+    if ((s = socket(AF_INET, SOCK_DGRAM, IPPROTO_UDP)) == -1) {
+        printf("Could not setup a socket!\n");
 		return 1;
 	}
 

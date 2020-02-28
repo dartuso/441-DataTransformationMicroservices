@@ -20,17 +20,17 @@
 
 
 /* Main program */
-void identityServer() {
-	struct sockaddr_in si_server, si_client;
-	struct sockaddr *server, *client;
-	int s, len = sizeof(si_server);
-	char messagein[MAX_MESSAGE_LENGTH];
-	char messageout[MAX_MESSAGE_LENGTH];
-	int readBytes;
+int identityServer() {
+    struct sockaddr_in si_server, si_client;
+    struct sockaddr *server, *client;
+    int s, len = sizeof(si_server);
+    char messagein[MAX_MESSAGE_LENGTH];
+    char messageout[MAX_MESSAGE_LENGTH];
+    int readBytes;
 
-	if ((s = socket(AF_INET, SOCK_DGRAM, IPPROTO_UDP)) == -1) {
-		printf("Could not setup a socket!\n");
-		return 1;
+    if ((s = socket(AF_INET, SOCK_DGRAM, IPPROTO_UDP)) == -1) {
+        printf("Could not setup a socket!\n");
+        return 1;
 	}
 
 	memset((char *) &si_server, 0, sizeof(si_server));
@@ -74,5 +74,5 @@ void identityServer() {
 	sendto(s, messageout, strlen(messageout), 0, client, len);
 
 	close(s);
-	return 0;
+    return 0;
 }

@@ -23,17 +23,17 @@
 
 
 /* Main program */
-int main() {
-	struct sockaddr_in si_server, si_client;
-	struct sockaddr *server, *client;
-	int s, len = sizeof(si_server);
-	char messagein[MAX_MESSAGE_LENGTH];
-	char messageout[MAX_MESSAGE_LENGTH];
-	int readBytes;
+int lowerServer() {
+    struct sockaddr_in si_server, si_client;
+    struct sockaddr *server, *client;
+    int s, len = sizeof(si_server);
+    char messagein[MAX_MESSAGE_LENGTH];
+    char messageout[MAX_MESSAGE_LENGTH];
+    int readBytes;
 
-	if ((s = socket(AF_INET, SOCK_DGRAM, IPPROTO_UDP)) == -1) {
-		printf("Could not setup a socket!\n");
-		return 1;
+    if ((s = socket(AF_INET, SOCK_DGRAM, IPPROTO_UDP)) == -1) {
+        printf("Could not setup a socket!\n");
+        return -1;
 	}
 
 	memset((char *) &si_server, 0, sizeof(si_server));
@@ -44,9 +44,9 @@ int main() {
 	client = (struct sockaddr *) &si_client;
 
 	if (bind(s, server, sizeof(si_server)) == -1) {
-		printf("Could not bind to port %d!\n", LOWER_PORT);
-		return 1;
-	}
+        printf("Could not bind to port %d!\n", LOWER_PORT);
+        return -1;
+    }
 	fprintf(stderr, "Welcome! I am the lower case server!!\n");
 	printf("server now listening on UDP port %d...\n", LOWER_PORT);
 
@@ -57,7 +57,6 @@ int main() {
 	/* see what comes in from a client, if anything */
 	if ((readBytes = recvfrom(s, messagein, MAX_MESSAGE_LENGTH, 0, client, (socklen_t *) &len)) < 0) {
 		printf("Read error!\n");
-		return -1;
 	}
 #ifdef DEBUG
 	else printf("Server received %d bytes\n", readBytes);
@@ -78,5 +77,5 @@ int main() {
 	sendto(s, messageout, strlen(messageout), 0, client, len);
 
 	close(s);
-	return 0;
+    return 0;
 }
