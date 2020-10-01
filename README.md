@@ -1,20 +1,20 @@
 # 441-DataTransformationMicroservices
-##Compliation
+## Compliation
 g++ bonus.cpp const.h caesar.c lower.c identity.c reverse.c upper.c yours.c -o mainserver.out
 g++ mainclient.cpp const.h -o mainclient.out
 or
 make
 (on command line)
 
-##Run
+## Run
 Run mainserver.out (first)
 Then run mainclient.out
 
-##Configuration
+## Configuration
 SERVERIP to use is set in const.h
 can also use USE_HOSTNAME 1 to resolve the hostname set in HOSTNAME function
 
-##Use
+## Use
 On the client enter a string and choice 1 or more data transformations of:
 Identity: The identity transformation does nothing to the data, but merely returns exactly what was received. It is also known as an echo server.
 Reverse: This transformation reverses the order of the bytes in a message, and returns the result back. For example, the message "dog" would become "god".
